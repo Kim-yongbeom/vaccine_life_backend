@@ -43,7 +43,7 @@ function SignUpForm() {
     if (name === "password") {
       const reg = /^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
       if (form.passwordConfirm === value && form.passwordConfirm.length > 0) {
-        setError("비밀번호가 일치합니다.");
+        setError("보안 등급 : 강함");
       } else {
         if (!reg.test(value)) {
           setError(
