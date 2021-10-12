@@ -1,13 +1,8 @@
-import React, { useRef } from "react";
+import React from "react";
 import { useState } from "react";
-import { useHistory } from "react-router";
 import AuthForm from "../../components/auth/AuthForm";
 import client from "../../libs/api/_client";
-import {
-  ToastsContainer,
-  ToastsStore,
-  ToastsContainerPosition,
-} from "react-toasts";
+import { useHistory } from "react-router-dom";
 
 function SignUpForm() {
   const history = useHistory();
@@ -27,6 +22,16 @@ function SignUpForm() {
       [name]: value,
     });
 
+    if (name === "email") {
+      const reg_email =
+        /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
+      if (!reg_email.test(value)) {
+        setError("이메일 형식이 잘못되었습니다.");
+      } else {
+        setError("");
+      }
+    }
+
     if (name === "passwordConfirm") {
       if (form.password === value && form.password.length > 0) {
         setError("비밀번호가 일치합니다.");
@@ -37,27 +42,34 @@ function SignUpForm() {
 
     if (name === "password") {
       const reg = /^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
-
       if (form.passwordConfirm === value && form.passwordConfirm.length > 0) {
         setError("비밀번호가 일치합니다.");
       } else {
         if (!reg.test(value)) {
           setError(
-            "비밀번호는 8자 이상이어야 하며, 숫자/소문자/특수문자를 모두 포함해야 합니다."
+            "비밀번호는 8자 이상이어야 하며, 숫자/특수문자를 모두 포함해야 합니다."
           );
-          return;
+        } else {
+          setError("비밀번호가 서로 다릅니다, 다시 입력해주세요.");
         }
-        setError("비밀번호가 서로 다릅니다, 다시 입력해주세요.");
       }
     }
   };
 
   const onClickSubmit = async (e) => {
     e.preventDefault();
-
+    const reg = /^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+    const reg_email =
+      /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
     try {
-      if (form.password !== form.passwordConfirm) {
-        setError("비밀번호가 서로 다릅니다, 다시 입력해주세요.");
+      if (!reg_email.test(form.email)) {
+        setError("이메일 형식이 올바르지 않습니다.");
+      } else if (form.password !== form.passwordConfirm) {
+        setError("비밀번호가 서로 다릅니다, 확인해주세요.");
+      } else if (!reg.test(form.password)) {
+        setError(
+          "비밀번호는 8자 이상이어야 하며, 숫자/특수문자를 모두 포함해야 합니다."
+        );
       } else {
         const response = await client.post("/vaccine/auth/signup", {
           email: form.email,
@@ -67,7 +79,6 @@ function SignUpForm() {
 
         if (response.status === 200) {
           console.log("회원가입 성공");
-          ToastsStore.success("회원가입 완료");
           history.goBack();
         }
       }
@@ -81,10 +92,19 @@ function SignUpForm() {
     }
   };
 
+  // const onClickSubmit = async (e) => {
+  //   e.preventDefault();
+  //   // const response = await client.post("/api/auth/signup", {
+  //   //   email: "ehdgns17616@naver.com",
+  //   //   nickName: "동훈",
+  //   //   password: "ehdgns2797",
+  //   // });
+  // };
+
   return (
     <AuthForm
-      onClickSubmit={onClickSubmit}
       onChangeInput={onChangeInput}
+      onClickSubmit={onClickSubmit}
       type="register"
       error={error}
       form={form}
