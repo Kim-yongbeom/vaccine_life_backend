@@ -12,6 +12,7 @@ import AuthProvider from "./context/providers/AuthProvider";
 import { useContext } from "react";
 import AuthContext from "./context/AuthContext";
 import AddProfilePage from "./pages/AddProfilePage";
+import WirtePage from "./pages/WirtePage";
 import {
   ToastsContainer,
   ToastsStore,
@@ -29,16 +30,16 @@ function App() {
     const token = localStorage.getItem("accessToken")
       ? localStorage.getItem("accessToken")
       : null;
+
     console.log(token);
     async function getAccount() {
       if (token !== null) {
         client.defaults.headers.common["Authorization"] = `${token}`;
         const response = await client.get("/vaccine/auth/profile");
         setAuthInfo({ isLoggedIn: true, userInfo: response.data.data });
-        console.log(response);
         try {
         } catch (error) {
-          console.log(error);
+          console.log("ee");
         }
       }
     }
@@ -53,6 +54,7 @@ function App() {
       <Route component={SignInPage} exact path="/signin" />
       <Route component={SignUpPage} exact path="/signup" />
       <Route component={AddProfilePage} exact path="/addprofile" />
+      <Route component={WirtePage} exact path="/write" />
 
       {/* <Route component={RegisterPage} path="/register" /> */}
       {/* <Route component={WritePage} path="/write" /> */}

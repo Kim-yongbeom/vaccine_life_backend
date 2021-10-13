@@ -1,17 +1,23 @@
-import React, { useState } from "react";
+import React from "react";
+import { useState } from "react";
 import { useContext } from "react";
-import { useHistory } from "react-router";
 import NavbarComponent from "../../components/common/NavbarComponent";
 import AuthContext from "../../context/AuthContext";
+import client from "../../libs/api/_client";
+import { useHistory } from "react-router-dom";
 
 function NavbarContainer() {
-  const { authInfo } = useContext(AuthContext);
+  const { authInfo, setAuthInfo } = useContext(AuthContext);
   const [visible, setVisible] = useState(false);
   const history = useHistory();
 
-  const logout = () => {
+  const onClickLogout = () => {
     localStorage.removeItem("accessToken");
-    history.go();
+    client.defaults.headers.common["Authorization"] = ``;
+    setAuthInfo({
+      isLoggedIn: false,
+    });
+    history.push("/");
   };
 
   const onClickProfileImg = () => {
@@ -21,9 +27,9 @@ function NavbarContainer() {
   return (
     <NavbarComponent
       onClickProfileImg={onClickProfileImg}
-      logout={logout}
       visible={visible}
       authInfo={authInfo}
+      onClickLogout={onClickLogout}
     />
   );
 }

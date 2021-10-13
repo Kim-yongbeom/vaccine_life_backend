@@ -9,5 +9,6 @@
 - yarn add react-loading
 - yarn add dayjs
 - yarn add redux
-- yarn add quill
+- yarn add react-quill
 - yarn add react-toasts
+- yarn add react-dropdown

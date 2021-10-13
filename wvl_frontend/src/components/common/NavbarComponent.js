@@ -6,6 +6,7 @@ import MainLogo from "../../assets/global/logo.png";
 import ButtonComponent from "./ButtonComponent";
 import SearchBox from "./search/SearchBox";
 import ProfileAvatar from "../../assets/global/profile.png";
+import { useState } from "react";
 
 const NavbarWrap = styled.div`
   position: fixed;
@@ -20,7 +21,6 @@ const Wrapper = styled(Responsive)`
   align-items: center;
   justify-content: space-between;
   box-sizing: border-box;
-
   .logo {
     font-size: 1.125rem;
     font-weight: 800;
@@ -100,7 +100,12 @@ const ProfileItem = styled.div`
   }
 `;
 
-function NavbarComponent({ authInfo, onClickProfileImg, visible, logout }) {
+function NavbarComponent({
+  authInfo,
+  onClickProfileImg,
+  visible,
+  onClickLogout,
+}) {
   return (
     <>
       <NavbarWrap>
@@ -130,7 +135,7 @@ function NavbarComponent({ authInfo, onClickProfileImg, visible, logout }) {
                 {visible && (
                   <ProfileBoard>
                     <ProfileItem>회원 정보 변경</ProfileItem>
-                    <ProfileItem onClick={logout}>로그아웃</ProfileItem>
+                    <ProfileItem onClick={onClickLogout}>로그아웃</ProfileItem>
                   </ProfileBoard>
                 )}
               </ProfileWrap>

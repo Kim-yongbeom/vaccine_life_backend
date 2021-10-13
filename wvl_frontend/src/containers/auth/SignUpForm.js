@@ -3,6 +3,7 @@ import { useState } from "react";
 import AuthForm from "../../components/auth/AuthForm";
 import client from "../../libs/api/_client";
 import { useHistory } from "react-router-dom";
+import { ToastsStore } from "react-toasts";
 
 function SignUpForm() {
   const history = useHistory();
@@ -79,6 +80,7 @@ function SignUpForm() {
 
         if (response.status === 200) {
           console.log("회원가입 성공");
+          ToastsStore.success("회원가입 완료");
           history.goBack();
         }
       }
@@ -91,15 +93,6 @@ function SignUpForm() {
       }
     }
   };
-
-  // const onClickSubmit = async (e) => {
-  //   e.preventDefault();
-  //   // const response = await client.post("/api/auth/signup", {
-  //   //   email: "ehdgns17616@naver.com",
-  //   //   nickName: "동훈",
-  //   //   password: "ehdgns2797",
-  //   // });
-  // };
 
   return (
     <AuthForm
