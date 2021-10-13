@@ -44,7 +44,7 @@ function SignInForm() {
         const result = await client.get("/vaccine/auth/profile");
         console.log(result.data.data);
         setAuthInfo({ isLoggedIn: true, userInfo: result.data.data });
-        ToastsStore.success("회원가입 완료");
+        ToastsStore.success("로그인 완료");
         history.push("/");
       }
     } catch (error) {

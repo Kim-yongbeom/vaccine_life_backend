@@ -7,29 +7,36 @@ import client from "../../libs/api/_client";
 import { useHistory } from "react-router-dom";
 
 function NavbarContainer() {
+  const history = useHistory();
   const { authInfo, setAuthInfo } = useContext(AuthContext);
   const [visible, setVisible] = useState(false);
-  const history = useHistory();
+
+  const onClickProfileImg = () => {
+    setVisible(!visible);
+  };
+
+  const onClickEditProfile = () => {
+    history.push("/edit/profile");
+    setVisible(false);
+  };
 
   const onClickLogout = () => {
     localStorage.removeItem("accessToken");
     client.defaults.headers.common["Authorization"] = ``;
     setAuthInfo({
+      ...authInfo,
       isLoggedIn: false,
     });
     history.push("/");
+    setVisible(false);
   };
-
-  const onClickProfileImg = () => {
-    setVisible(!visible);
-  };
-  console.log(authInfo);
   return (
     <NavbarComponent
       onClickProfileImg={onClickProfileImg}
       visible={visible}
       authInfo={authInfo}
       onClickLogout={onClickLogout}
+      onClickEditProfile={onClickEditProfile}
     />
   );
 }

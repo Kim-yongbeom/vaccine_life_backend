@@ -3,9 +3,11 @@ import PostContext from "../PostContext";
 
 const PostProvider = ({ children }) => {
   const [postInfo, setPostInfo] = useState({
+    category: "",
     tags: [],
     title: "",
     body: "",
+    originalPostId: "",
   });
 
   return (

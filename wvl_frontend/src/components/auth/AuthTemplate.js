@@ -17,7 +17,7 @@ const AuthTemplateBlock = styled.div`
   align-items: center;
 `;
 
-const WhtieBox = styled.div`
+const WhiteBox = styled.div`
   .logo-area {
     display: block;
     padding-bottom: 2rem;
@@ -29,13 +29,13 @@ const WhtieBox = styled.div`
   padding: 2rem;
   width: 360px;
   background: white;
-  border-radius: 2px;
+  border-radius: 3px;
 `;
 
 const AuthTemplate = ({ children, ...rest }) => {
   return (
     <AuthTemplateBlock>
-      <WhtieBox>{children}</WhtieBox>
+      <WhiteBox>{children}</WhiteBox>
     </AuthTemplateBlock>
   );
 };
