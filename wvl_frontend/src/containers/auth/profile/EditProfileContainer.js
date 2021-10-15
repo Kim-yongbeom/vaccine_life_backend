@@ -9,7 +9,7 @@ function EditProfileContainer() {
   const { authInfo, setAuthInfo } = useContext(AuthContext);
   const { profileInfo, setProfileInfo } = useContext(ProfileContext);
   console.log(profileInfo);
-  const defaultOption = profileInfo;
+  // const defaultOption = profileInfo;
 
   useEffect(() => {
     console.log(authInfo);

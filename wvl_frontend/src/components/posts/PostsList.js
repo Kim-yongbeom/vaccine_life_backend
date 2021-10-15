@@ -1,16 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 import Responsive from "../common/Responsive";
-import DefaultAvatar from "../../assets/global/profile.png";
-import palette from "../../libs/styles/palette";
+// import DefaultAvatar from "../../assets/global/profile.png";
+// import palette from "../../libs/styles/palette";
 import { BsGenderMale, BsGenderFemale } from "react-icons/bs";
 import LoadingComponent from "../common/loading/LoadingComponent";
 import dayjs from "dayjs";
-import PostsContext from "../../context/PostsContext";
-import { AiFillEdit } from "react-icons/ai";
 import { useHistory } from "react-router-dom";
-import { useContext } from "react";
-import Comment from "../common/comment/Comment";
 const PostsListBlock = styled(Responsive)`
   margin-top: 4rem;
   margin-bottom: 4rem;
@@ -215,8 +211,8 @@ function PostItem({ post, onClickPost }) {
               dangerouslySetInnerHTML={{ __html: post.content }}
             ></PostContent>
             <PostTags>
-              {post.tags.map((item) => (
-                <PostTagsItem>#{item}</PostTagsItem>
+              {post.tags.map((item, index) => (
+                <PostTagsItem key={index}>#{item}</PostTagsItem>
               ))}
             </PostTags>
           </PostContentWrap>

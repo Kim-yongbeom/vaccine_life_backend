@@ -4,11 +4,11 @@ import GlobalStyles from "./GlobalStyles";
 import HomePage from "./pages/HomePage";
 import SignInPage from "./pages/SignInPage";
 import SignUpPage from "./pages/SignUpPage";
-import { useDispatch, useSelector } from "react-redux";
+//import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import client from "./libs/api/_client";
-import { getProfile } from "./modules/user";
-import AuthProvider from "./context/providers/AuthProvider";
+// import { getProfile } from "./modules/user";
+// import AuthProvider from "./context/providers/AuthProvider";
 import { useContext } from "react";
 import AuthContext from "./context/AuthContext";
 import EditProfilePage from "./pages/EditProfilePage";
@@ -19,7 +19,7 @@ import {
   ToastsContainerPosition,
 } from "react-toasts";
 import WritePage from "./pages/WritePage";
-import PostsListContainer from "./containers/posts/PostsListContainer";
+//import PostsListContainer from "./containers/posts/PostsListContainer";
 
 function App() {
   // const dispatch = useDispatch();
