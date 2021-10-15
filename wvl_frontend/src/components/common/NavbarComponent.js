@@ -12,7 +12,7 @@ const NavbarWrap = styled.div`
   width: 100%;
   background: #10345f;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08);
-  z-index: 1;
+  z-index: 2;
 `;
 
 const Wrapper = styled(Responsive)`
@@ -132,12 +132,12 @@ function NavbarComponent({
               </ProfileText>
               <ProfileWrap>
                 <ProfileImageWrap onClick={onClickProfileImg}>
-                  <ProfileImage src={ProfileAvatar} />
+                  <ProfileImage src={authInfo.userInfo.imgURL} />
                 </ProfileImageWrap>
                 {visible && (
                   <ProfileBoard>
                     <ProfileItem onClick={onClickEditProfile}>
-                      회원 정보 수정
+                      회원 정보 변경
                     </ProfileItem>
                     <ProfileItem onClick={onClickLogout}>로그아웃</ProfileItem>
                   </ProfileBoard>

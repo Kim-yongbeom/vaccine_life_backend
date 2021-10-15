@@ -12,12 +12,13 @@ import AuthProvider from "./context/providers/AuthProvider";
 import { useContext } from "react";
 import AuthContext from "./context/AuthContext";
 import EditProfilePage from "./pages/EditProfilePage";
-import WirtePage from "./pages/WirtePage";
 import {
   ToastsContainer,
   ToastsStore,
   ToastsContainerPosition,
 } from "react-toasts";
+import WritePage from "./pages/WritePage";
+import PostsListContainer from "./containers/posts/PostsListContainer";
 
 function App() {
   // const dispatch = useDispatch();
@@ -30,16 +31,16 @@ function App() {
     const token = localStorage.getItem("accessToken")
       ? localStorage.getItem("accessToken")
       : null;
-
     console.log(token);
     async function getAccount() {
       if (token !== null) {
         client.defaults.headers.common["Authorization"] = `${token}`;
         const response = await client.get("/vaccine/auth/profile");
         setAuthInfo({ isLoggedIn: true, userInfo: response.data.data });
+        console.log(response);
         try {
         } catch (error) {
-          console.log("ee");
+          console.log(error);
         }
       }
     }
@@ -54,10 +55,9 @@ function App() {
       <Route component={SignInPage} exact path="/signin" />
       <Route component={SignUpPage} exact path="/signup" />
       <Route component={EditProfilePage} exact path="/edit/profile" />
-      <Route component={WirtePage} exact path="/write" />
 
       {/* <Route component={RegisterPage} path="/register" /> */}
-      {/* <Route component={WritePage} path="/write" /> */}
+      <Route component={WritePage} path="/write" />
       {/* <Route component={PostPage} path="/@:username/:postId" /> */}
       <ToastsContainer
         position={ToastsContainerPosition.BOTTOM_CENTER}
