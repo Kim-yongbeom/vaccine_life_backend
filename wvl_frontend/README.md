@@ -12,3 +12,24 @@
 - yarn add react-quill
 - yarn add react-toasts
 - yarn add react-dropdown
+
+### node_modules
+- node_modules -> react-dropdown -> 172줄 var key = option.key || null; 추가 , 
+- 181~182줄 
+```
+onMouseDown: this.setValue.bind(this, value, label, key),
+onClick: this.setValue.bind(this, value, label, key),
+```           
+- 141~150줄 
+```
+key: "setValue",
+    value: function setValue(value, label, key) {
+      var newState = {
+        selected: {
+          value: value,
+          label: label,
+          key: key
+        },
+        isOpen: false
+      };       
+```
