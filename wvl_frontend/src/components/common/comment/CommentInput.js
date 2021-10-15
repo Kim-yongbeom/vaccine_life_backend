@@ -25,11 +25,18 @@ const SubmitButton = styled(ButtonComponent)`
   font-size: 1.2rem;
 `;
 
-function CommentInput() {
+function CommentInput({ onChangeInput, onClickComment }) {
   return (
     <CommentInputWrap>
-      <StyledInput placeholder="댓글을 입력해주세요." />
-      <SubmitButton cyan>제출</SubmitButton>
+      <StyledInput
+        placeholder="댓글을 입력해주세요."
+        name="comment"
+        value={onChangeInput.value}
+        onChange={onChangeInput}
+      />
+      <SubmitButton cyan onClick={onClickComment}>
+        제출
+      </SubmitButton>
     </CommentInputWrap>
   );
 }

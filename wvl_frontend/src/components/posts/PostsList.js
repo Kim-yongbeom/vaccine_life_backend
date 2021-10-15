@@ -6,8 +6,10 @@ import palette from "../../libs/styles/palette";
 import { BsGenderMale, BsGenderFemale } from "react-icons/bs";
 import LoadingComponent from "../common/loading/LoadingComponent";
 import dayjs from "dayjs";
+import PostsContext from "../../context/PostsContext";
 import { AiFillEdit } from "react-icons/ai";
 import { useHistory } from "react-router-dom";
+import { useContext } from "react";
 import Comment from "../common/comment/Comment";
 const PostsListBlock = styled(Responsive)`
   margin-top: 4rem;
@@ -171,52 +173,56 @@ function PostItem({ post, onClickPost }) {
   console.log(post);
   console.log(post.writer);
   return (
-    <PostItemBlock onClick={onClickPost}>
-      <ProfileWrap>
-        <ProfileImageWrap>
-          <ProfileImage src={post.writer.profileImage} />
-        </ProfileImageWrap>
-        <PostItemInfoWrap>
-          <ProfileInfoWrap>
-            <span className="nickName">
-              {post.writer.nickName}
-              {post.writer.gender === "male" ? (
-                <StyledMaleIcon />
-              ) : (
-                <StyledFemaleIcon />
-              )}
-            </span>
-            <span className="profile">{type}</span>
-            <span className="dot">·</span>
-            <span className="profile">{degree}</span>
-            <span className="dot">·</span>
-            <span className="profile">
-              {parseInt(post.writer.age / 10) * 10}대
-            </span>
-          </ProfileInfoWrap>
-          {/* 시간 남으면 1분전, 2시간전... 등 같이 만들어보기 */}
-          <PostItemDate>
-            {post.updatedDate
-              ? dayjs(post.updatedDate).format("YYYY년 MM월 DD일")
-              : dayjs(post.publishedDate).format("YYYY년 MM월 DD일")}
-          </PostItemDate>
-        </PostItemInfoWrap>
-        {/* {post.writer.nickName === authInfo.userInfo.} */}
-        {/* <PostAiFillEdit /> */}
-      </ProfileWrap>
-      <PostContentWrap>
-        <PostCategory>{post.category}</PostCategory>
-        <PostTitle>{post.title}</PostTitle>
-        <PostContent
-          dangerouslySetInnerHTML={{ __html: post.content }}
-        ></PostContent>
-        <PostTags>
-          {post.tags.map((item) => (
-            <PostTagsItem>#{item}</PostTagsItem>
-          ))}
-        </PostTags>
-      </PostContentWrap>
-    </PostItemBlock>
+    <>
+      {post && (
+        <PostItemBlock onClick={onClickPost}>
+          <ProfileWrap>
+            <ProfileImageWrap>
+              <ProfileImage src={post.writer.profileImage} />
+            </ProfileImageWrap>
+            <PostItemInfoWrap>
+              <ProfileInfoWrap>
+                <span className="nickName">
+                  {post.writer.nickName}
+                  {post.writer.gender === "male" ? (
+                    <StyledMaleIcon />
+                  ) : (
+                    <StyledFemaleIcon />
+                  )}
+                </span>
+                <span className="profile">{type}</span>
+                <span className="dot">·</span>
+                <span className="profile">{degree}</span>
+                <span className="dot">·</span>
+                <span className="profile">
+                  {parseInt(post.writer.age / 10) * 10}대
+                </span>
+              </ProfileInfoWrap>
+              {/* 시간 남으면 1분전, 2시간전... 등 같이 만들어보기 */}
+              <PostItemDate>
+                {post.updatedDate
+                  ? dayjs(post.updatedDate).format("YYYY년 MM월 DD일")
+                  : dayjs(post.publishedDate).format("YYYY년 MM월 DD일")}
+              </PostItemDate>
+            </PostItemInfoWrap>
+            {/* {post.writer.nickName === authInfo.userInfo.} */}
+            {/* <PostAiFillEdit /> */}
+          </ProfileWrap>
+          <PostContentWrap>
+            <PostCategory>{post.category}</PostCategory>
+            <PostTitle>{post.title}</PostTitle>
+            <PostContent
+              dangerouslySetInnerHTML={{ __html: post.content }}
+            ></PostContent>
+            <PostTags>
+              {post.tags.map((item) => (
+                <PostTagsItem>#{item}</PostTagsItem>
+              ))}
+            </PostTags>
+          </PostContentWrap>
+        </PostItemBlock>
+      )}
+    </>
   );
 }
 

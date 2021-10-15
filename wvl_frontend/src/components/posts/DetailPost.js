@@ -5,6 +5,7 @@ import { BsGenderFemale } from "react-icons/bs";
 import styled from "styled-components";
 import Responsive from "../common/Responsive";
 import Comment from "../common/comment/Comment";
+import dayjs from "dayjs";
 
 const DetailWrap = styled(Responsive)`
   margin-top: 3rem;
@@ -126,54 +127,87 @@ const PostTagsItem = styled.div`
   }
 `;
 
-function DetailPost(postInfo) {
+const degreeMap = {
+  0: "접종 안함",
+  1: "1차 접종",
+  2: "2차 접종",
+};
+
+const typeMap = {
+  PZ: "화이자",
+  MD: "모더나",
+  AZ: "아스트라제네카",
+  JS: "얀센",
+};
+
+function DetailPost({ postInfo, onChangeInput, onClickComment }) {
   const { gender } = postInfo;
+  console.log(postInfo);
+  const PostInfoPost = postInfo.post;
+  const degree = degreeMap[PostInfoPost && PostInfoPost.writer.degree];
+  const type = typeMap[PostInfoPost && PostInfoPost.writer.type];
   return (
-    <DetailWrap>
-      <DetailContainer>
-        <DetailPostBlock>
-          <ProfileWrap>
-            <ProfileImageWrap>
-              <ProfileImage src={DefaultAvatar} />
-            </ProfileImageWrap>
-            <PostItemInfoWrap>
-              <ProfileInfoWrap>
-                <span className="nickName">
-                  이동훈
-                  {gender === "male" ? (
-                    <StyledMaleIcon />
-                  ) : (
-                    <StyledFemaleIcon />
-                  )}
-                </span>
-                <span className="profile">모더나</span>
-                <span className="dot">·</span>
-                <span className="profile">1차</span>
-                <span className="dot">·</span>
-                <span className="profile">20대</span>
-              </ProfileInfoWrap>
-              {/* 시간 남으면 1분전, 2시간전... 등 같이 만들어보기 */}
-              <PostItemDate>2021-10-14 / 13:33</PostItemDate>
-            </PostItemInfoWrap>
-          </ProfileWrap>
-          <PostContentWrap>
-            <PostCategory>후기</PostCategory>
-            <PostTitle>오늘 모더나 백신 맞고 왔습니다.</PostTitle>
-            <PostContent>
-              오늘 백신 맞고 왔습니다... 많이 아프네요.. 다들 힘내시길... <br />{" "}
-              힘내시길 바래요 힘내시길 바래요 힘내시길 바래요 힘내시길 바래요
-              힘내시길 바래요
-            </PostContent>
-            <PostTags>
-              <PostTagsItem>#모더나</PostTagsItem>
-              <PostTagsItem>#부작용</PostTagsItem>
-              <PostTagsItem>#아픔</PostTagsItem>
-            </PostTags>
-          </PostContentWrap>
-          <Comment />
-        </DetailPostBlock>
-      </DetailContainer>
-    </DetailWrap>
+    <>
+      {PostInfoPost && (
+        <DetailWrap>
+          <DetailContainer>
+            <DetailPostBlock>
+              <ProfileWrap>
+                <ProfileImageWrap>
+                  <ProfileImage src={DefaultAvatar} />
+                </ProfileImageWrap>
+                <PostItemInfoWrap>
+                  <ProfileInfoWrap>
+                    <span className="nickName">
+                      {PostInfoPost.writer.nickName}
+                      {PostInfoPost.writer.gender === "male" ? (
+                        <StyledMaleIcon />
+                      ) : (
+                        <StyledFemaleIcon />
+                      )}
+                    </span>
+                    <span className="profile">{type}</span>
+                    <span className="dot">·</span>
+                    <span className="profile">{degree}</span>
+                    <span className="dot">·</span>
+                    <span className="profile">
+                      {parseInt(PostInfoPost.writer.age / 10) * 10}대
+                    </span>
+                  </ProfileInfoWrap>
+                  {/* 시간 남으면 1분전, 2시간전... 등 같이 만들어보기 */}
+                  <PostItemDate>
+                    {PostInfoPost.updatedDate
+                      ? dayjs(PostInfoPost.updatedDate).format(
+                          "YYYY년 MM월 DD일"
+                        )
+                      : dayjs(PostInfoPost.publishedDate).format(
+                          "YYYY년 MM월 DD일"
+                        )}
+                  </PostItemDate>
+                </PostItemInfoWrap>
+              </ProfileWrap>
+              <PostContentWrap>
+                <PostCategory>{PostInfoPost.category}</PostCategory>
+                <PostTitle>{PostInfoPost.title}</PostTitle>
+                <PostContent
+                  dangerouslySetInnerHTML={{ __html: PostInfoPost.content }}
+                ></PostContent>
+                <PostTags>
+                  {PostInfoPost.tags.map((item) => (
+                    <PostTagsItem>#{item}</PostTagsItem>
+                  ))}
+                </PostTags>
+              </PostContentWrap>
+              <Comment
+                postInfo={postInfo}
+                onChangeInput={onChangeInput}
+                onClickComment={onClickComment}
+              />
+            </DetailPostBlock>
+          </DetailContainer>
+        </DetailWrap>
+      )}
+    </>
   );
 }
 
