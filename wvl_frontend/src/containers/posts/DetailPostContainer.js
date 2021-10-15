@@ -48,11 +48,13 @@ function DetailPostContainer() {
   };
 
   const onClickComment = async () => {
+    console.log(commentForm);
+    const { comment } = commentForm;
     try {
       const response = await client.post(
         `vaccine/comments/${DetailPostPageUrl.postid}`,
         {
-          commentContent: commentForm,
+          content: comment,
         }
       );
       if (response.status === 200) {
