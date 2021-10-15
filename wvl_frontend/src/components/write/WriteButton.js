@@ -15,6 +15,7 @@ const StyledButton = styled(ButtonComponent)`
   position: fixed;
   bottom: 2rem;
   right: 2rem;
+  z-index: 2;
   &:hover {
     background-color: ${palette.cyan[4]};
   }
@@ -32,10 +33,10 @@ function WriteButton() {
   return (
     <StyledButton
       onClick={() => {
-        setPostInfo({
-          ...postInfo,
-          originalPostId: "61668a7ff81a285a9c988b0a",
-        });
+        // setPostInfo({
+        //   ...postInfo,
+        //   originalPostId: "61668a7ff81a285a9c988b0a",
+        // });
         history.push("/write");
       }}
     >

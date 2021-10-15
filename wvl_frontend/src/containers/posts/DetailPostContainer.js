@@ -5,6 +5,7 @@ import { useContext } from "react";
 import PostContext from "../../context/PostContext";
 import client from "../../libs/api/_client";
 import { useParams } from "react-router";
+import { ToastsStore } from "react-toasts";
 
 function DetailPostContainer() {
   const [loading, setLoading] = useState(false);
@@ -14,8 +15,7 @@ function DetailPostContainer() {
 
   useEffect(() => {
     async function getData() {
-      console.log(postInfo);
-      setLoading(true);
+      console.log(postInfo.post);
       try {
         const response = await client.get(
           `vaccine/posts/${DetailPostPageUrl.postid}`
@@ -36,7 +36,7 @@ function DetailPostContainer() {
       }
     }
     getData();
-  }, []);
+  }, [setPostInfo]);
 
   const onChangeInput = (e) => {
     const { name, value } = e.target;
@@ -59,6 +59,18 @@ function DetailPostContainer() {
       );
       if (response.status === 200) {
         console.log(response.data);
+        ToastsStore.success("댓글 게시 완료");
+        const result = response.data.data;
+        // console.log(targetComments)
+        // console.log(postInfo)
+        const targetComments = result.comments;
+        setPostInfo({
+          ...postInfo,
+          post: {
+            ...postInfo.post,
+            comments: targetComments,
+          },
+        });
       }
     } catch (error) {
       console.log(error);

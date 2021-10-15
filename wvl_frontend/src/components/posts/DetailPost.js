@@ -141,7 +141,6 @@ const typeMap = {
 };
 
 function DetailPost({ postInfo, onChangeInput, onClickComment }) {
-  const { gender } = postInfo;
   console.log(postInfo);
   const PostInfoPost = postInfo.post;
   const degree = degreeMap[PostInfoPost && PostInfoPost.writer.degree];

@@ -117,7 +117,9 @@ function CommentItem({ commentInfo }) {
                 <span className="dot">·</span>
                 <span className="profile">{degree}</span>
                 <span className="dot">·</span>
-                <span className="profile">{commentInfo.commentWriter.age}</span>
+                <span className="profile">
+                  {parseInt(commentInfo.commentWriter.age / 10) * 10}대
+                </span>
               </ProfileInfoWrap>
               {/* 시간 남으면 1분전, 2시간전... 등 같이 만들어보기 */}
             </CommentItemInfoWrap>
