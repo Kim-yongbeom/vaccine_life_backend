@@ -12,6 +12,7 @@ import AuthProvider from "./context/providers/AuthProvider";
 import { useContext } from "react";
 import AuthContext from "./context/AuthContext";
 import EditProfilePage from "./pages/EditProfilePage";
+import DetailPostPage from "./pages/DetailPostPage";
 import {
   ToastsContainer,
   ToastsStore,
@@ -55,6 +56,7 @@ function App() {
       <Route component={SignInPage} exact path="/signin" />
       <Route component={SignUpPage} exact path="/signup" />
       <Route component={EditProfilePage} exact path="/edit/profile" />
+      <Route component={DetailPostPage} exact path="/post/:postid" />
 
       {/* <Route component={RegisterPage} path="/register" /> */}
       <Route component={WritePage} path="/write" />

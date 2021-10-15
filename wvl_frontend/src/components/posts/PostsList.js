@@ -7,6 +7,8 @@ import { BsGenderMale, BsGenderFemale } from "react-icons/bs";
 import LoadingComponent from "../common/loading/LoadingComponent";
 import dayjs from "dayjs";
 import { AiFillEdit } from "react-icons/ai";
+import { useHistory } from "react-router-dom";
+import Comment from "../common/comment/Comment";
 const PostsListBlock = styled(Responsive)`
   margin-top: 4rem;
   margin-bottom: 4rem;
@@ -163,13 +165,13 @@ const typeMap = {
   JS: "얀센",
 };
 
-function PostItem({ post }) {
+function PostItem({ post, onClickPost }) {
   const degree = degreeMap[post.writer.degree];
   const type = typeMap[post.writer.type];
   console.log(post);
   console.log(post.writer);
   return (
-    <PostItemBlock>
+    <PostItemBlock onClick={onClickPost}>
       <ProfileWrap>
         <ProfileImageWrap>
           <ProfileImage src={post.writer.profileImage} />
@@ -219,6 +221,7 @@ function PostItem({ post }) {
 }
 
 function PostsList({ posts, loading }) {
+  const history = useHistory();
   return (
     <>
       {loading && <LoadingComponent />}
@@ -226,7 +229,13 @@ function PostsList({ posts, loading }) {
         <PostsListContainer>
           {posts &&
             posts.map((post, index) => {
-              return <PostItem post={post} />; // key={index} 선생님께 물어보기
+              return (
+                <PostItem
+                  key={index}
+                  onClickPost={() => history.push(`/post/${post._id}`)}
+                  post={post}
+                />
+              );
             })}
         </PostsListContainer>
       </PostsListBlock>
