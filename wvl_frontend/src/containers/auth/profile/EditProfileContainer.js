@@ -50,11 +50,15 @@ function EditProfileContainer() {
     formData.append("img", imageFile);
 
     try {
-      const response = await client.put("vaccine/auth/profileimg", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      const response = await client.put(
+        "vaccine/auth/profile/image",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
 
       if (response.status === 200) {
         setProfileInfo({
