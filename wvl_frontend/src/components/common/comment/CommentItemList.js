@@ -105,7 +105,7 @@ function CommentItem({ commentInfo }) {
         <CommentItemBlock>
           <ProfileWrap>
             <ProfileImageWrap>
-              <ProfileImage src={DefaultAvatar} />
+              <ProfileImage src={commentInfo.commentWriter.profileImage} />
             </ProfileImageWrap>
             <CommentItemInfoWrap>
               <ProfileInfoWrap>

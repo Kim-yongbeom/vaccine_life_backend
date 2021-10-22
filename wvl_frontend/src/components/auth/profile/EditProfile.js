@@ -70,7 +70,7 @@ function EditProfile({
     { value: 1, label: "1차 접종", key: "degree" },
     { value: 2, label: "2차 접종", key: "degree" },
   ];
-
+  console.log("이게 뭐야", defaultOption);
   return (
     <EditProfileWrap>
       <EditItemBlock>

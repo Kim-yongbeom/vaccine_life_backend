@@ -10,7 +10,7 @@ router.post("/signin", authController.signin); // 로그인
 
 router.put("/profile", authModule.loggedIn, authController.updateUser); // 회원정보 수정
 router.put(
-  "/profile/image",
+  "/profileimg",
   authModule.loggedIn,
   upload.single("img"),
   authController.updateImage

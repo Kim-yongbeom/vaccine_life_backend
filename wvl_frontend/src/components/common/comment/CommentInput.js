@@ -23,6 +23,7 @@ const StyledInput = styled.input`
 const SubmitButton = styled(ButtonComponent)`
   border-radius: 0px;
   font-size: 1.2rem;
+  background-color: #10345f;
 `;
 
 function CommentInput({ onChangeInput, onClickComment }) {

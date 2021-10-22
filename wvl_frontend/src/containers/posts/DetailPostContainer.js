@@ -6,12 +6,14 @@ import PostContext from "../../context/PostContext";
 import client from "../../libs/api/_client";
 import { useParams } from "react-router";
 import { ToastsStore } from "react-toasts";
+import { useHistory } from "react-router";
 
 function DetailPostContainer() {
   const [loading, setLoading] = useState(false);
   const { postInfo, setPostInfo } = useContext(PostContext);
   const [commentForm, setCommentForm] = useState("");
   const DetailPostPageUrl = useParams();
+  const history = useHistory();
 
   useEffect(() => {
     async function getData() {
@@ -27,8 +29,6 @@ function DetailPostContainer() {
           setPostInfo({
             post: result,
           });
-          console.log("ㅁㅁㄴㅇㅁㅇ", postInfo._id);
-          console.log("(전체 게시물 조회) 홈페이지 업로드 완료");
         }
       } catch (error) {
         setLoading(false);
@@ -77,11 +77,26 @@ function DetailPostContainer() {
     }
   };
 
+  const onClickdelete = async () => {
+    try {
+      const response = await client.delete(
+        `vaccine/posts/${DetailPostPageUrl.postid}`
+      );
+      if (response.status === 200) {
+        ToastsStore.success("게시글 삭제 완료");
+        history.push("/");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <DetailPost
       postInfo={postInfo}
       onChangeInput={onChangeInput}
       onClickComment={onClickComment}
+      onClickdelete={onClickdelete}
     />
   );
 }

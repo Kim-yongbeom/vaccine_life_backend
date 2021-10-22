@@ -2,6 +2,7 @@ import React from "react";
 import DefaultAvatar from "../../assets/global/profile.png";
 import { BsGenderMale } from "react-icons/bs";
 import { BsGenderFemale } from "react-icons/bs";
+import { AiFillDelete } from "react-icons/ai";
 import styled from "styled-components";
 import Responsive from "../common/Responsive";
 import Comment from "../common/comment/Comment";
@@ -20,9 +21,10 @@ const DetailContainer = styled.div`
 
 const DetailPostBlock = styled.div`
   padding: 1rem 1rem;
-  max-width: 50rem;
+  width: 50rem;
   box-sizing: border-box;
   position: static;
+  background-color: aliceblue;
   @media (max-width: 768px) {
     width: 100%;
   }
@@ -32,6 +34,11 @@ const DetailPostBlock = styled.div`
 `;
 
 const ProfileWrap = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const ProfileWrapBetween = styled.div`
   display: flex;
 `;
 
@@ -94,6 +101,13 @@ const StyledFemaleIcon = styled(BsGenderFemale)`
   stroke-width: 0.7px;
 `;
 
+const Detaildelete = styled(AiFillDelete)`
+  border-radius: 0px;
+  width: 2rem;
+  height: 2rem;
+  cursor: pointer;
+`;
+
 const PostContentWrap = styled.div`
   margin-top: 2rem;
 `;
@@ -140,7 +154,12 @@ const typeMap = {
   JS: "얀센",
 };
 
-function DetailPost({ postInfo, onChangeInput, onClickComment }) {
+function DetailPost({
+  postInfo,
+  onChangeInput,
+  onClickComment,
+  onClickdelete,
+}) {
   console.log(postInfo);
   const PostInfoPost = postInfo.post;
   const degree = degreeMap[PostInfoPost && PostInfoPost.writer.degree];
@@ -152,38 +171,41 @@ function DetailPost({ postInfo, onChangeInput, onClickComment }) {
           <DetailContainer>
             <DetailPostBlock>
               <ProfileWrap>
-                <ProfileImageWrap>
-                  <ProfileImage src={DefaultAvatar} />
-                </ProfileImageWrap>
-                <PostItemInfoWrap>
-                  <ProfileInfoWrap>
-                    <span className="nickName">
-                      {PostInfoPost.writer.nickName}
-                      {PostInfoPost.writer.gender === "male" ? (
-                        <StyledMaleIcon />
-                      ) : (
-                        <StyledFemaleIcon />
-                      )}
-                    </span>
-                    <span className="profile">{type}</span>
-                    <span className="dot">·</span>
-                    <span className="profile">{degree}</span>
-                    <span className="dot">·</span>
-                    <span className="profile">
-                      {parseInt(PostInfoPost.writer.age / 10) * 10}대
-                    </span>
-                  </ProfileInfoWrap>
-                  {/* 시간 남으면 1분전, 2시간전... 등 같이 만들어보기 */}
-                  <PostItemDate>
-                    {PostInfoPost.updatedDate
-                      ? dayjs(PostInfoPost.updatedDate).format(
-                          "YYYY년 MM월 DD일"
-                        )
-                      : dayjs(PostInfoPost.publishedDate).format(
-                          "YYYY년 MM월 DD일"
+                <ProfileWrapBetween>
+                  <ProfileImageWrap>
+                    <ProfileImage src={PostInfoPost.writer.profileImage} />
+                  </ProfileImageWrap>
+                  <PostItemInfoWrap>
+                    <ProfileInfoWrap>
+                      <span className="nickName">
+                        {PostInfoPost.writer.nickName}
+                        {PostInfoPost.writer.gender === "male" ? (
+                          <StyledMaleIcon />
+                        ) : (
+                          <StyledFemaleIcon />
                         )}
-                  </PostItemDate>
-                </PostItemInfoWrap>
+                      </span>
+                      <span className="profile">{type}</span>
+                      <span className="dot">·</span>
+                      <span className="profile">{degree}</span>
+                      <span className="dot">·</span>
+                      <span className="profile">
+                        {parseInt(PostInfoPost.writer.age / 10) * 10}대
+                      </span>
+                    </ProfileInfoWrap>
+                    {/* 시간 남으면 1분전, 2시간전... 등 같이 만들어보기 */}
+                    <PostItemDate>
+                      {PostInfoPost.updatedDate
+                        ? dayjs(PostInfoPost.updatedDate).format(
+                            "YYYY년 MM월 DD일"
+                          )
+                        : dayjs(PostInfoPost.publishedDate).format(
+                            "YYYY년 MM월 DD일"
+                          )}
+                    </PostItemDate>
+                  </PostItemInfoWrap>
+                </ProfileWrapBetween>
+                <Detaildelete onClick={onClickdelete}>게시물 삭제</Detaildelete>
               </ProfileWrap>
               <PostContentWrap>
                 <PostCategory>{PostInfoPost.category}</PostCategory>

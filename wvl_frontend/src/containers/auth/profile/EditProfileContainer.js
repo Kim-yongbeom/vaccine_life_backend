@@ -9,7 +9,7 @@ function EditProfileContainer() {
   const { authInfo, setAuthInfo } = useContext(AuthContext);
   const { profileInfo, setProfileInfo } = useContext(ProfileContext);
   console.log(profileInfo);
-  // const defaultOption = profileInfo;
+  const defaultOption = profileInfo;
 
   useEffect(() => {
     console.log(authInfo);
@@ -50,15 +50,11 @@ function EditProfileContainer() {
     formData.append("img", imageFile);
 
     try {
-      const response = await client.put(
-        "vaccine/auth/profile/image",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      const response = await client.put("vaccine/auth/profileimg", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
       if (response.status === 200) {
         setProfileInfo({

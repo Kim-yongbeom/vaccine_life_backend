@@ -32,11 +32,11 @@ const buttonStyle = css`
       font-size: 1.125rem;
     `}
   ${(props) =>
-    props.cyan &&
+    props.gray &&
     css`
-      background: ${palette.cyan[5]};
+      background: ${palette.gray[5]};
       &:hover {
-        background: ${palette.cyan[4]};
+        background: ${palette.gray[4]};
       }
     `}
 `;

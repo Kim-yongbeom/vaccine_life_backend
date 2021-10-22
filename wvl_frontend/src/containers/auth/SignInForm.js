@@ -42,13 +42,11 @@ function SignInForm() {
         localStorage.setItem("accessToken", accessToken);
         client.defaults.headers.common["Authorization"] = `${accessToken}`;
         const result = await client.get("/vaccine/auth/profile");
-        console.log(result.data.data);
         setAuthInfo({ isLoggedIn: true, userInfo: result.data.data });
         ToastsStore.success("로그인 완료");
         history.push("/");
       }
     } catch (error) {
-      console.log(error);
       if (error.response.status === 400) {
         setError("이메일 / 비밀번호를 확인해 주시기 바랍니다.");
       }
