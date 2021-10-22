@@ -108,6 +108,7 @@ function NavbarComponent({
   onClickLogout,
   onClickEditProfile,
 }) {
+  console.log(authInfo.userInfo.profileImage);
   return (
     <>
       <NavbarWrap>
@@ -132,7 +133,7 @@ function NavbarComponent({
               </ProfileText>
               <ProfileWrap>
                 <ProfileImageWrap onClick={onClickProfileImg}>
-                  <ProfileImage src={authInfo.userInfo.imgURL} />
+                  <ProfileImage src={authInfo.userInfo.profileImage} />
                 </ProfileImageWrap>
                 {visible && (
                   <ProfileBoard>
