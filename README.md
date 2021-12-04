@@ -1,4 +1,4 @@
-# wise_vaccine_life
+# 백신 웹
 
 <img width="1366" alt="슬기로운 백신생활 2021-10-11 17-59-45" src="https://user-images.githubusercontent.com/86070069/136762866-01dbc19d-31fd-4a89-84da-c807dd0cecca.png">
 
