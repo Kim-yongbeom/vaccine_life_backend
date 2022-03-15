@@ -1,4 +1,8 @@
-# 프론트엔드
+# 프론트엔드(REACT)
+
+## REACT 기초 설명 블로그
+- https://velog.io/@hyeonyohwan/React-%EA%B0%84%EB%8B%A8-%EC%A0%95%EB%A6%AC
+- 출처 : https://velog.io/@hyeonyohwan
 
 ### 패키지 설치
 
